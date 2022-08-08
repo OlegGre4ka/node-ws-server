@@ -1,7 +1,8 @@
 const ws = require('ws');
 
 const wss = new ws.Server({
-    port: process.env.PORT || 5000
+    // port: process.env.PORT || 5000
+    port: "https://ws-node-server.herokuapp.com/"
 }, () => console.log(`Server started on 5000`))
 
 console.log(wss,`wss`)
