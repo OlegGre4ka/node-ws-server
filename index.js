@@ -1,11 +1,10 @@
 const ws = require('ws');
 
 const wss = new ws.Server({
-    // port: process.env.PORT || 5000
-    port: "https://ws-node-server.herokuapp.com/"
+    port: process.env.PORT || 28591 || 5000
+    // port: "https://ws-node-server.herokuapp.com/"
 }, () => console.log(`Server started on 5000`))
 
-console.log(wss,`wss`)
 wss.on('connection', function connection(ws) {
     ws.on('message', function (message) {
         message = JSON.parse(message)
