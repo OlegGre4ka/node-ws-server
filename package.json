@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/OlegGre4ka/node-ws-server#readme",
   "dependencies": {
+    "express": "^4.18.1",
     "nodemon": "^2.0.19",
     "ws": "^8.8.1"
   }

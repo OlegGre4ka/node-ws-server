@@ -1,10 +1,20 @@
-const ws = require('ws');
+// const ws = require('ws');
 
-const wss = new ws.Server({
-    port: process.env.PORT || 28591 || 5000
-    // port: "https://ws-node-server.herokuapp.com/"
-}, () => console.log(`Server started on 5000`))
+// const wss = new ws.Server({
+//     port: process.env.PORT || 28591 || 5000
+//     // port: "https://ws-node-server.herokuapp.com/"
+// }, () => console.log(`Server started on 5000`))
+const express = require('express');
+const { Server } = require('ws');
 
+const PORT = process.env.PORT || 5000;
+// const INDEX = '/index.html';
+
+const server = express()
+//   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const wss = new Server({ server });
 wss.on('connection', function connection(ws) {
     ws.on('message', function (message) {
         message = JSON.parse(message)
