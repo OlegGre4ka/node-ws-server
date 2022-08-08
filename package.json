@@ -1,0 +1,25 @@
+{
+  "name": "ws-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OlegGre4ka/node-ws-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OlegGre4ka/node-ws-server/issues"
+  },
+  "homepage": "https://github.com/OlegGre4ka/node-ws-server#readme",
+  "dependencies": {
+    "nodemon": "^2.0.19",
+    "ws": "^8.8.1"
+  }
+}
