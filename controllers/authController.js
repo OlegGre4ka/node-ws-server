@@ -12,15 +12,15 @@
 //     }
 //     return jwt.sign(payload, secret, {expiresIn: "24h"} )
 // }
-const UserService = require("../services/userService");
+// const UserService = require("../services/userService");
 
 class authController {
     async registration(req, res, next) {
         try {
         console.log(req.body, "req.body-registration");
-        const {userName, email, password} = req.body;
-        const userData = await UserService.registration(userName, email, password);
-        res.cookie("refreshToken",userData.refreshToken,{maxAge: 30*24*60*60*1000,httpOnly: true})
+        // const {userName, email, password} = req.body;
+        // const userData = await UserService.registration(userName, email, password);
+        // res.cookie("refreshToken",userData.refreshToken,{maxAge: 30*24*60*60*1000,httpOnly: true})
             // const errors = validationResult(req)
             // if (!errors.isEmpty()) {
             //     return res.status(400).json({message: "Ошибка при регистрации", errors})
@@ -28,7 +28,8 @@ class authController {
 
             // const userRole = await Role.findOne({value: "USER"})
             // const user = new User({userName, email, password: hashPassword, roles: [userRole.value]})
-            return res.status(200).json({data:{...userData, status: 200}})
+            // return res.status(200).json({data:{...userData, status: 200}})
+            return res.status(200).json({data:{...req.body, status: 200}})
         } catch (e) {
             console.log(e, "reg-error in catch")
             res.status(400).json({message: `Registration ${e}`, status: 400})
