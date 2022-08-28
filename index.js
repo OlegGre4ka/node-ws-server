@@ -17,23 +17,29 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors(corsOptions));
-
+// app.use("/");
 app.use("/auth", authRouter);
 
-const start = async() => {
-    try {
-        await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        const server = app.listen(PORT, () => console.log(`Express server listening on ${PORT}`));
-        startWSServer(server, PORT);
-    } catch (e) {
-        console.log(e)
-    }
-}
+mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+const server = app.listen(PORT, () => console.log(`Express server listening on ${PORT}`));
+startWSServer(server, PORT);
+// const start = async() => {
+//     try {
+//         await mongoose.connect(process.env.DB_URL, {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         });
+//         const server = app.listen(PORT, () => console.log(`Express server listening on ${PORT}`));
+//         startWSServer(server, PORT);
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
 
-start();
+// start();
 
 
 
