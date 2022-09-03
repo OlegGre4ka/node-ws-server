@@ -8,14 +8,14 @@ const ApiError = require("./../exceptions/apiError");
 
 class UserService {
     async registration(userName, email, password) {
-        const candidate = await UserModel.findOne({ email })
+        const candidate = await UserModel.findOne({ email: email.toLowerCase() })
         if (candidate) {
             throw ApiError.BadRequest(`Користувач з поштовою адресою ${email} вже існує`)
         }
         const hashPassword = bcrypt.hashSync(password, 7);
         const activationLink = uuid.v4();
         // const userRole = await Role.findOne({value: "USER"})
-        const user = await UserModel.create({ userName, email, password: hashPassword, activationLink/*, roles: [userRole.value]*/ });
+        const user = await UserModel.create({ userName, email: email.toLowerCase(), password: hashPassword, activationLink/*, roles: [userRole.value]*/ });
         await MailService.sendActivationMail(email, `${process.env.API_URL}auth/activate/${activationLink}`);
         const userDto = new UserDto(user);
         const tokens = TokenService.generateToken({ ...userDto });
@@ -35,7 +35,7 @@ class UserService {
     }
 
     async login(email, password) {
-        const user = await UserModel.findOne({ email })
+        const user = await UserModel.findOne({ email: email.toLowerCase() })
         if (!user) {
             throw ApiError.BadRequest(`Користувача з такими даними не було знайдено`)
         }
