@@ -35,9 +35,9 @@ class UserService {
     }
 
     async login(email, password) {
-        const user = await UserModel.findOne({ email: email.toLowerCase() })
+        const user = await UserModel.findOne({ email: email.toLowerCase(), isActivated: true })
         if (!user) {
-            throw ApiError.BadRequest(`Користувача з такими даними не було знайдено`)
+            throw ApiError.BadRequest(`Користувач з такими даними не зареєстрований, або ви не активували свій акаунт. Посилання для активації надійшло вам на електронну пошту.`)
         }
         const isPassEquals = await bcrypt.compare(password, user.password);
         if (!isPassEquals) {
@@ -56,6 +56,11 @@ class UserService {
     async logout(refreshToken) {
         const token = await TokenService.removeToken(refreshToken);
         return token;
+    }
+
+    async getUsers(){
+        // return await UserModel.find({})
+        return await UserModel.find({isActivated: true})
     }
 
 }

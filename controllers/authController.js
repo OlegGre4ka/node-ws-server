@@ -92,9 +92,8 @@ class authController {
 
     async getUsers(req, res, next) {
         try {
-            // const users = await User.find()
-            // res.json(users)
-            res.json("list of users, response success")
+            const users = await UserService.getUsers()
+            return res.json({data:users})
         } catch (e) {
             console.log(e);
             next(e);
