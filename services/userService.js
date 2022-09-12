@@ -15,7 +15,10 @@ class UserService {
         const hashPassword = bcrypt.hashSync(password, 7);
         const activationLink = uuid.v4();
         // const userRole = await Role.findOne({value: "USER"})
-        const user = await UserModel.create({ userName, email: email.toLowerCase(), password: hashPassword, activationLink/*, roles: [userRole.value]*/ });
+        const user = await UserModel.create({
+            userName, email: email.toLowerCase(), password: hashPassword,
+            activationLink, dateActivated: Date.now()/*, roles: [userRole.value]*/
+        });
         await MailService.sendActivationMail(email, `${process.env.API_URL}auth/activate/${activationLink}`);
         const userDto = new UserDto(user);
         const tokens = TokenService.generateToken({ ...userDto });
@@ -58,9 +61,10 @@ class UserService {
         return token;
     }
 
-    async getUsers(){
-        // return await UserModel.find({})
-        return await UserModel.find({isActivated: true})
+    async getUsers() {
+        const usersActivated = await UserModel.find({ isActivated: true });
+        const users = usersActivated.map(user => {return new UserDto(user)});
+        return users
     }
 
 }

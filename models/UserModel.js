@@ -6,6 +6,7 @@ const UserModel = new Schema({
     password: {type: String, required: true},
     isActivated: {type: Boolean, default: false},
     activationLink: {type: String, default: false},
+    dateActivated: {type: Number}
     // roles: [{type: String, ref: 'Role'}]
 })
 
